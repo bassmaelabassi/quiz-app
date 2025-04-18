@@ -15,7 +15,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 space-y-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-red-100p-4 space-y-6">
       <div className="bg-red-300 text-white text-3xl font-bold rounded-xl shadow-md px-8 py-6 w-full max-w-xl text-center">
         Bienvenue au Quiz
       </div>
@@ -30,7 +30,7 @@ const Home = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Entrez votre nom"
-          className="w-full border border-gray-300 rounded px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-red-400"
+          className="w-full border border-gray-300 bg-white rounded px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-red-400"
         />
 
         <button

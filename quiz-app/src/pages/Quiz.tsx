@@ -36,15 +36,25 @@ const Quiz: React.FC = () => {
 
   const handleAnswer = (answer: string) => {
     const correct = questions[current].correct_answer;
-    if (answer === correct) {
-      setScore((prev) => prev + 1);
-    }
+    const updatedScore = answer === correct ? score + 1 : score;
+
     const next = current + 1;
     if (next < questions.length) {
+      setScore(updatedScore);
       setCurrent(next);
     } else {
+      // نحضرو الأسئلة بصيغة مبسطة للتمرير
+      const simplifiedQuestions = questions.map((q) => ({
+        question: q.question,
+        correctAnswer: q.correct_answer,
+      }));
+
       navigate('/result', {
-        state: { score: answer === correct ? score + 1 : score, total: questions.length },
+        state: {
+          score: updatedScore,
+          total: questions.length,
+          questions: simplifiedQuestions,
+        },
       });
     }
   };
