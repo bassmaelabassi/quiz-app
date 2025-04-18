@@ -24,13 +24,20 @@ const Result: React.FC = () => {
           Vous avez obtenu <span className="font-semibold text-red-600">{score}</span> / {total}
         </p>
 
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Les bonnes réponses :</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Vos réponses :</h2>
         <ul className="text-left space-y-4 mb-6">
           {Array.isArray(questions) && questions.length > 0 ? (
             questions.map((q: any, index: number) => (
               <li key={index} className="bg-white p-4 rounded-xl shadow">
                 <p className="font-semibold text-gray-700">Q{index + 1}: {q.question}</p>
-                <p className="text-green-600">✅ Réponse correcte: {q.correctAnswer}</p>
+                <p className={q.userAnswer === q.correctAnswer ? "text-green-600" : "text-red-600"}>
+                   Votre réponse: {q.userAnswer}
+                </p>
+                {q.userAnswer !== q.correctAnswer && (
+                  <p className="text-green-600">
+                    ✅ Réponse correcte: {q.correctAnswer}
+                  </p>
+                )}
               </li>
             ))
           ) : (

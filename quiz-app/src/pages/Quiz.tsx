@@ -12,6 +12,7 @@ type Question = {
   correct_answer: string;
   incorrect_answers: string[];
   answers: string[];
+  userAnswer?: string;
 };
 
 const Quiz: React.FC = () => {
@@ -37,23 +38,27 @@ const Quiz: React.FC = () => {
   const handleAnswer = (answer: string) => {
     const correct = questions[current].correct_answer;
     const updatedScore = answer === correct ? score + 1 : score;
+    const updatedQuestions = questions.map((q, i) =>
+      i === current ? { ...q, userAnswer: answer } : q
+    );
+    setQuestions(updatedQuestions);
 
     const next = current + 1;
     if (next < questions.length) {
       setScore(updatedScore);
       setCurrent(next);
     } else {
-      // نحضرو الأسئلة بصيغة مبسطة للتمرير
-      const simplifiedQuestions = questions.map((q) => ({
+      const finalQuestions = updatedQuestions.map((q) => ({
         question: q.question,
         correctAnswer: q.correct_answer,
+        userAnswer: q.userAnswer,
       }));
 
       navigate('/result', {
         state: {
           score: updatedScore,
           total: questions.length,
-          questions: simplifiedQuestions,
+          questions: finalQuestions,
         },
       });
     }
